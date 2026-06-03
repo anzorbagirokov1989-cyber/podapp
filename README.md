@@ -13,13 +13,17 @@ Proof-of-concept прогнозирования **послеоперационн
 
 ## Docker (рекомендуется)
 
+**Локально:**
+
 ```bash
 cd susana
-docker compose up --build
+docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
 ```
 
-- **UI:** http://localhost:8080 — таблица пациентов, колонка **Делирий** с прогнозом и вероятностью  
-- **API:** http://localhost:8002/docs (внутри Docker — порт 8000)  
+- **UI:** http://localhost:8080  
+- **API (напрямую):** http://localhost:8002/docs  
+
+**Timeweb / production** (`docker-compose.yml`): снаружи только **web** (nginx :80), API доступен через `/api` внутри nginx.
 
 При сборке образа `api` модель переобучается на xlsx из корня `susana/`.
 
