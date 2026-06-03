@@ -1,6 +1,6 @@
-# Timeweb Cloud: ingress на контейнерный порт 8000 (см. EXPOSE в Dockerfile).
+# Timeweb Cloud: сервис api на :8000 (UI + API в одном образе).
 services:
-  app:
+  api:
     build:
       context: .
       dockerfile: Dockerfile
