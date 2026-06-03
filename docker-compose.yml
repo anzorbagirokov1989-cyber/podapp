@@ -1,5 +1,15 @@
-# Production / Timeweb Cloud: наружу только nginx (web), API — внутри сети compose.
+# Production / Timeweb Cloud: web — единственная точка входа (порт 80), API только внутри сети.
 services:
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      api:
+        condition: service_healthy
+
   api:
     build:
       context: .
@@ -12,13 +22,3 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-
-  web:
-    build:
-      context: .
-      dockerfile: web/Dockerfile
-    ports:
-      - "80:80"
-    depends_on:
-      api:
-        condition: service_healthy
