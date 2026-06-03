@@ -9,9 +9,12 @@ import numpy as np
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 ARTIFACTS_DIR = Path(__file__).resolve().parent / "artifacts"
+STATIC_DIR = Path(__file__).resolve().parent / "static"
 MODEL_PATH = ARTIFACTS_DIR / "model.joblib"
 FEATURES_PATH = ARTIFACTS_DIR / "features.json"
 
@@ -152,3 +155,28 @@ def predict(body: PredictRequest) -> PredictResponse:
         threshold=threshold,
         model_name=_meta.get("model_name", "model"),
     )
+
+
+def _mount_frontend() -> None:
+    if not STATIC_DIR.is_dir():
+        return
+
+    assets_dir = STATIC_DIR / "assets"
+    if assets_dir.is_dir():
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+
+    @app.get("/")
+    def spa_index() -> FileResponse:
+        return FileResponse(STATIC_DIR / "index.html")
+
+    @app.get("/{path:path}")
+    def spa_fallback(path: str) -> FileResponse:
+        if path.startswith("api") or path == "health":
+            raise HTTPException(404)
+        candidate = STATIC_DIR / path
+        if candidate.is_file():
+            return FileResponse(candidate)
+        return FileResponse(STATIC_DIR / "index.html")
+
+
+_mount_frontend()

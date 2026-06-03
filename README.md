@@ -13,19 +13,19 @@ Proof-of-concept прогнозирования **послеоперационн
 
 ## Docker (рекомендуется)
 
-**Локально:**
+**Локально / Timeweb:**
 
 ```bash
 cd susana
 docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
 ```
 
-- **UI:** http://localhost:8080  
-- **API (напрямую):** http://localhost:8002/docs  
+- **Локально:** http://localhost:8080 (UI + `/api/*` на одном порту)  
+- **Timeweb:** https://anzorbagirokov1989-cyber-podapp-8ccd.twc1.net  
 
-**Timeweb / production** (`docker-compose.yml`): снаружи только **web** (nginx :80), API доступен через `/api` внутри nginx.
+Один контейнер `app`: FastAPI отдаёт API и собранный React из `api/static/`.
 
-При сборке образа `api` модель переобучается на xlsx из корня `susana/`.
+При сборке образа модель переобучается на xlsx из корня `susana/`.
 
 ## Локальная разработка
 

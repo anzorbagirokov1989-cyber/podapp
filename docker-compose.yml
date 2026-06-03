@@ -1,24 +1,6 @@
-# Production / Timeweb Cloud: web — единственная точка входа (порт 80), API только внутри сети.
+# Timeweb Cloud: ingress на контейнерный порт 8000 (см. EXPOSE в Dockerfile).
 services:
-  web:
+  app:
     build:
       context: .
-      dockerfile: web/Dockerfile
-    ports:
-      - "80:80"
-    depends_on:
-      api:
-        condition: service_healthy
-
-  api:
-    build:
-      context: .
-      dockerfile: api/Dockerfile
-    expose:
-      - "8000"
-    healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 15s
+      dockerfile: Dockerfile

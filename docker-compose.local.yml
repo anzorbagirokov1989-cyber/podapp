@@ -1,9 +1,5 @@
-# Локальная разработка: docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
+# Локально: docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
 services:
-  web:
+  app:
     ports:
-      - "8080:80"
-
-  api:
-    ports:
-      - "8002:8000"
+      - "8080:8000"
