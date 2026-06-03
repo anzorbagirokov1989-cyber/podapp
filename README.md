@@ -6,8 +6,10 @@ Proof-of-concept прогнозирования **послеоперационн
 
 | Путь | Описание |
 |------|----------|
-| `SUMMARY.md` | Сводка PoC и выводы по важности признаков |
-| `pod_delirium_poc.ipynb` | Обучение и ROC / feature importance |
+| `SUMMARY.md` | Сводка PoC: сравнение моделей, ROC, feature importance |
+| `reports/` | Графики ROC и важности признаков (`roc_cv.png`, `feature_importance_rf.png`, …) |
+| `pod_delirium_poc.ipynb` | Обучение, сравнение моделей, ROC / feature importance |
+| `scripts/model_comparison_report.py` | Пересчёт метрик и экспорт в `reports/` |
 | `api/` | Backend: модель (Random Forest), `/api/predict` |
 | `web/` | React-приложение с таблицей ввода |
 | `docker-compose.yml` | Запуск API + фронтенда |

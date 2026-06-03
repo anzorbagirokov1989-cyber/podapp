@@ -5,3 +5,5 @@ matplotlib>=3.7
 seaborn>=0.13
 jupyter>=1.0
 ipykernel>=6.0
+# Опционально для XGBoost в сравнении моделей (macOS: brew install libomp):
+# xgboost>=2.0

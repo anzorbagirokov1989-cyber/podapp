@@ -1,0 +1,88 @@
+{
+  "n_samples": 74,
+  "n_features": 24,
+  "pod_rate": 0.527,
+  "models": [
+    {
+      "model": "Логистическая регрессия",
+      "auc_cv": 0.795,
+      "auc_holdout": 0.661
+    },
+    {
+      "model": "Случайный лес",
+      "auc_cv": 0.81,
+      "auc_holdout": 0.714
+    },
+    {
+      "model": "Gradient Boosting (sklearn)",
+      "auc_cv": 0.725,
+      "auc_holdout": 0.714
+    },
+    {
+      "model": "HistGradientBoosting",
+      "auc_cv": 0.724,
+      "auc_holdout": 0.688
+    }
+  ],
+  "best_cv": "Случайный лес",
+  "best_holdout": "Случайный лес",
+  "feature_importance_top_rf": [
+    {
+      "feature": "Поведение при индукции",
+      "importance": 0.1394,
+      "share_pct": 13.9
+    },
+    {
+      "feature": "Длит. анестезии",
+      "importance": 0.1242,
+      "share_pct": 12.4
+    },
+    {
+      "feature": "Тип операции",
+      "importance": 0.092,
+      "share_pct": 9.2
+    },
+    {
+      "feature": "Рост",
+      "importance": 0.0917,
+      "share_pct": 9.2
+    },
+    {
+      "feature": "m-YPAS",
+      "importance": 0.082,
+      "share_pct": 8.2
+    },
+    {
+      "feature": "Вес",
+      "importance": 0.0779,
+      "share_pct": 7.8
+    },
+    {
+      "feature": "Возраст, мес",
+      "importance": 0.0644,
+      "share_pct": 6.4
+    },
+    {
+      "feature": "Возраст, лет",
+      "importance": 0.0623,
+      "share_pct": 6.2
+    },
+    {
+      "feature": "Доза опиоидов",
+      "importance": 0.0564,
+      "share_pct": 5.6
+    },
+    {
+      "feature": "Планируемая длительность операции",
+      "importance": 0.0496,
+      "share_pct": 5.0
+    }
+  ],
+  "xgboost_available": false,
+  "figures": {
+    "roc_cv": "reports/roc_cv.png",
+    "roc_holdout": "reports/roc_holdout.png",
+    "feature_importance_rf": "reports/feature_importance_rf.png",
+    "feature_importance_gb": "reports/feature_importance_gb.png"
+  }
+}
