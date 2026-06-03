@@ -1,0 +1,433 @@
+{
+  "model_name": "random_forest",
+  "model_description": "Случайный лес (AUC CV ≈ 0.81), клинические + интраоперационные признаки",
+  "threshold": 0.5,
+  "feature_keys": [
+    "age_years",
+    "age_months",
+    "sex",
+    "weight_kg",
+    "height_cm",
+    "surgery_type",
+    "planned_duration",
+    "asa_class",
+    "neuro_comorbidity",
+    "comorbidity_type",
+    "prior_anesthesia_experience",
+    "m_ypas",
+    "anxiety_category",
+    "premedication",
+    "planned_anesthetic",
+    "induction_method",
+    "induction_behavior",
+    "maintenance_anesthetic",
+    "opioid_use",
+    "opioid_dose",
+    "dexmedetomidine_use",
+    "dexmedetomidine_dose",
+    "anesthesia_duration_min",
+    "intraop_complications"
+  ],
+  "fields": [
+    {
+      "key": "age_years",
+      "column": "Возраст (годы)",
+      "label": "Возраст, лет",
+      "type": "number",
+      "min": 0,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "key": "age_months",
+      "column": "Возраст (месяцы)",
+      "label": "Возраст, мес",
+      "type": "number",
+      "min": 0,
+      "max": 216,
+      "step": 1
+    },
+    {
+      "key": "sex",
+      "column": "Пол (0=Ж,1=М)",
+      "label": "Пол",
+      "type": "select",
+      "options": [
+        {
+          "value": 0,
+          "label": "Ж"
+        },
+        {
+          "value": 1,
+          "label": "М"
+        }
+      ]
+    },
+    {
+      "key": "weight_kg",
+      "column": "Вес (кг)",
+      "label": "Вес, кг",
+      "type": "number",
+      "min": 3,
+      "max": 120,
+      "step": 0.1
+    },
+    {
+      "key": "height_cm",
+      "column": "Рост (см)",
+      "label": "Рост, см",
+      "type": "number",
+      "min": 50,
+      "max": 200,
+      "step": 1
+    },
+    {
+      "key": "surgery_type",
+      "column": "Тип операции (1 офтальмологическая,2 ЛОР,3 стоматологическая,4 урологическая,5 ортопедическая,6 другое)",
+      "label": "Тип операции",
+      "type": "select",
+      "options": [
+        {
+          "value": 1,
+          "label": "1 — офтальмологическая"
+        },
+        {
+          "value": 2,
+          "label": "2 — ЛОР"
+        },
+        {
+          "value": 3,
+          "label": "3 — стоматологическая"
+        },
+        {
+          "value": 4,
+          "label": "4 — урологическая"
+        },
+        {
+          "value": 5,
+          "label": "5 — ортопедическая"
+        },
+        {
+          "value": 6,
+          "label": "6 — другое"
+        }
+      ]
+    },
+    {
+      "key": "planned_duration",
+      "column": "Планируемая длительность операции (1 <30 мин,2 30–60 мин,3 >60 мин)",
+      "label": "Длительность (план)",
+      "type": "select",
+      "options": [
+        {
+          "value": 1,
+          "label": "1 — <30 мин"
+        },
+        {
+          "value": 2,
+          "label": "2 — 30–60 мин"
+        },
+        {
+          "value": 3,
+          "label": "3 — >60 мин"
+        }
+      ]
+    },
+    {
+      "key": "asa_class",
+      "column": "ASA класс (1,2,3)",
+      "label": "ASA",
+      "type": "select",
+      "options": [
+        {
+          "value": 1,
+          "label": "1"
+        },
+        {
+          "value": 2,
+          "label": "2"
+        },
+        {
+          "value": 3,
+          "label": "3"
+        }
+      ]
+    },
+    {
+      "key": "neuro_comorbidity",
+      "column": "Неврологическая/психиатрическая коморбидность (0 нет,1 есть)",
+      "label": "Невр./псих. коморбидность",
+      "type": "select",
+      "options": [
+        {
+          "value": 0,
+          "label": "0 — нет"
+        },
+        {
+          "value": 1,
+          "label": "1 — есть"
+        }
+      ]
+    },
+    {
+      "key": "comorbidity_type",
+      "column": "Тип коморбидности (1 РАС,2 СДВГ,3 задержка развития,4 другое)",
+      "label": "Тип коморбидности",
+      "type": "select",
+      "options": [
+        {
+          "value": 1,
+          "label": "1 — РАС"
+        },
+        {
+          "value": 2,
+          "label": "2 — СДВГ"
+        },
+        {
+          "value": 3,
+          "label": "3 — задержка развития"
+        },
+        {
+          "value": 4,
+          "label": "4 — другое"
+        }
+      ]
+    },
+    {
+      "key": "prior_anesthesia_experience",
+      "column": "Предыдущий негативный опыт анестезии (0 нет,1 да,2 неизвестно)",
+      "label": "Негативный опыт анестезии",
+      "type": "select",
+      "options": [
+        {
+          "value": 0,
+          "label": "0 — нет"
+        },
+        {
+          "value": 1,
+          "label": "1 — да"
+        },
+        {
+          "value": 2,
+          "label": "2 — неизвестно"
+        }
+      ]
+    },
+    {
+      "key": "m_ypas",
+      "column": "m-YPAS (%)",
+      "label": "m-YPAS, %",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    {
+      "key": "anxiety_category",
+      "column": "Категория тревожности (1 <30%,2 30–50%,3 >50%)",
+      "label": "Категория тревожности",
+      "type": "select",
+      "options": [
+        {
+          "value": 1,
+          "label": "1 — <30%"
+        },
+        {
+          "value": 2,
+          "label": "2 — 30–50%"
+        },
+        {
+          "value": 3,
+          "label": "3 — >50%"
+        }
+      ]
+    },
+    {
+      "key": "premedication",
+      "column": "Премедикация (0 нет,1 мидазолам,2 дексмедетомидин,3 другое)",
+      "label": "Премедикация",
+      "type": "select",
+      "options": [
+        {
+          "value": 0,
+          "label": "0 — нет"
+        },
+        {
+          "value": 1,
+          "label": "1 — мидазолам"
+        },
+        {
+          "value": 2,
+          "label": "2 — дексмедетомидин"
+        },
+        {
+          "value": 3,
+          "label": "3 — другое"
+        }
+      ]
+    },
+    {
+      "key": "planned_anesthetic",
+      "column": "Планируемый основной анестетик (1 севофлуран,2 десфлуран,3 пропофол TIVA,4 другое)",
+      "label": "План. анестетик",
+      "type": "select",
+      "options": [
+        {
+          "value": 1,
+          "label": "1 — севофлуран"
+        },
+        {
+          "value": 2,
+          "label": "2 — десфлуран"
+        },
+        {
+          "value": 3,
+          "label": "3 — пропофол TIVA"
+        },
+        {
+          "value": 4,
+          "label": "4 — другое"
+        }
+      ]
+    },
+    {
+      "key": "induction_method",
+      "column": "Метод индукции (1 ингаляционный,2 внутривенный)",
+      "label": "Метод индукции",
+      "type": "select",
+      "options": [
+        {
+          "value": 1,
+          "label": "1 — ингаляционный"
+        },
+        {
+          "value": 2,
+          "label": "2 — внутривенный"
+        }
+      ]
+    },
+    {
+      "key": "induction_behavior",
+      "column": "Поведение при индукции (1 спокойно,2 легкое беспокойство,3 плач,4 выраженная борьба)",
+      "label": "Поведение при индукции",
+      "type": "select",
+      "options": [
+        {
+          "value": 1,
+          "label": "1 — спокойно"
+        },
+        {
+          "value": 2,
+          "label": "2 — лёгкое беспокойство"
+        },
+        {
+          "value": 3,
+          "label": "3 — плач"
+        },
+        {
+          "value": 4,
+          "label": "4 — выраженная борьба"
+        }
+      ]
+    },
+    {
+      "key": "maintenance_anesthetic",
+      "column": "Основной анестетик поддержания (1 севофлуран,2 десфлуран,3 пропофол,4 другое)",
+      "label": "Анестетик поддержания",
+      "type": "select",
+      "options": [
+        {
+          "value": 1,
+          "label": "1 — севофлуран"
+        },
+        {
+          "value": 2,
+          "label": "2 — десфлуран"
+        },
+        {
+          "value": 3,
+          "label": "3 — пропофол"
+        },
+        {
+          "value": 4,
+          "label": "4 — другое"
+        }
+      ]
+    },
+    {
+      "key": "opioid_use",
+      "column": "Использование опиоидов (0 нет,1 да)",
+      "label": "Опиоиды",
+      "type": "select",
+      "options": [
+        {
+          "value": 0,
+          "label": "0 — нет"
+        },
+        {
+          "value": 1,
+          "label": "1 — да"
+        }
+      ]
+    },
+    {
+      "key": "opioid_dose",
+      "column": "Доза опиоидов (мкг/кг)",
+      "label": "Доза опиоидов, мкг/кг",
+      "type": "number",
+      "min": 0,
+      "max": 50,
+      "step": 0.1
+    },
+    {
+      "key": "dexmedetomidine_use",
+      "column": "Использование дексмедетомидина (0 нет,1 да)",
+      "label": "Дексмедетомидин",
+      "type": "select",
+      "options": [
+        {
+          "value": 0,
+          "label": "0 — нет"
+        },
+        {
+          "value": 1,
+          "label": "1 — да"
+        }
+      ]
+    },
+    {
+      "key": "dexmedetomidine_dose",
+      "column": "Доза дексмедетомидина (мкг/кг)",
+      "label": "Доза дексмед., мкг/кг",
+      "type": "number",
+      "min": 0,
+      "max": 10,
+      "step": 0.1
+    },
+    {
+      "key": "anesthesia_duration_min",
+      "column": "Длительность анестезии (мин)",
+      "label": "Длит. анестезии, мин",
+      "type": "number",
+      "min": 5,
+      "max": 300,
+      "step": 1
+    },
+    {
+      "key": "intraop_complications",
+      "column": "Интраоперационные осложнения (0 нет,1 да)",
+      "label": "Интраоп. осложнения",
+      "type": "select",
+      "options": [
+        {
+          "value": 0,
+          "label": "0 — нет"
+        },
+        {
+          "value": 1,
+          "label": "1 — да"
+        }
+      ]
+    }
+  ]
+}
