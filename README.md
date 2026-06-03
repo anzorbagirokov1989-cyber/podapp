@@ -6,6 +6,7 @@ Proof-of-concept прогнозирования **послеоперационн
 
 | Путь | Описание |
 |------|----------|
+| `SUMMARY.md` | Сводка PoC и выводы по важности признаков |
 | `pod_delirium_poc.ipynb` | Обучение и ROC / feature importance |
 | `api/` | Backend: модель (Random Forest), `/api/predict` |
 | `web/` | React-приложение с таблицей ввода |
@@ -23,7 +24,10 @@ docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
 - **Локально:** http://localhost:8080 (UI + `/api/*` на одном порту)  
 - **Timeweb:** https://anzorbagirokov1989-cyber-podapp-8ccd.twc1.net  
 
-Один контейнер `app`: FastAPI отдаёт API и собранный React из `api/static/`.
+Один контейнер: FastAPI отдаёт API и собранный React из `api/static/` (см. корневой `Dockerfile`).
+
+**Timeweb Cloud:** приложение `susana_pod` — framework `docker`, корневой `Dockerfile`, URL:  
+https://anzorbagirokov1989-cyber-podapp-8ccd.twc1.net
 
 При сборке образа модель переобучается на xlsx из корня `susana/`.
 
